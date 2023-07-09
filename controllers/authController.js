@@ -3,7 +3,6 @@ const bcrypt = require("bcryptjs");
 
 exports.signup = async (req, res) => {
   const saltRounds = 10;
-
   try {
     const { email, password } = req.body;
     const hashedPassword = bcrypt.hashSync(password, saltRounds);
@@ -14,24 +13,24 @@ exports.signup = async (req, res) => {
       user_name,
       profile_picture: "https://xsgames.co/randomusers/avatar.php?g=pixel",
     });
-
+    console.log(user);
     if (user) {
       let userObj = user.toObject();
       delete userObj.password;
-      console.log(userObj);
+
       res.status(201).json({ message: "User created successfully", userObj });
     }
   } catch (error) {
     if (error.code === 11000)
-      res.status(400).json({ error: "User already exists" });
+      res.status(409).json({ error: "User already exists" });
     else res.status(500).json({ error: "Something went wrong!" });
   }
 };
 
 exports.login = async (req, res) => {
-  console.log(req);
   try {
     const { email, password } = req.body;
+
     const user = await User.findOne({ email });
 
     if (user && bcrypt.compareSync(password, user.password)) {
