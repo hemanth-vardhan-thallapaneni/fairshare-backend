@@ -13,7 +13,7 @@ exports.signup = async (req, res) => {
       user_name,
       profile_picture: "https://xsgames.co/randomusers/avatar.php?g=pixel",
     });
-    console.log(user);
+
     if (user) {
       let userObj = user.toObject();
       delete userObj.password;

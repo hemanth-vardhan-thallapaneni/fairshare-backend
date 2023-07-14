@@ -1,7 +1,15 @@
 const mongoose = require("mongoose");
+const generateCode = require("../utilities/generateCode");
 
 const userSchema = new mongoose.Schema(
   {
+    friendCode: {
+      type: String,
+      unique: true,
+      default: () => {
+        return generateCode();
+      },
+    },
     email: {
       type: String,
       required: true,

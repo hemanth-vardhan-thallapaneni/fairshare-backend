@@ -3,6 +3,7 @@ const cors = require("cors");
 const express = require("express");
 const mongoose = require("mongoose");
 const authRoutes = require("./routes/authRoutes");
+const friendsRoutes = require("./routes/friendsRoute");
 
 // Create Express app
 const app = express();
@@ -13,6 +14,7 @@ app.use(cors());
 
 // Routes
 app.use("/auth", authRoutes);
+app.use("/friends", friendsRoutes);
 
 // Connect to MongoDB Atlas
 mongoose
